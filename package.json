@@ -1,0 +1,16 @@
+{
+  "name": "edtech-parent-dashboard",
+  "version": "1.0.0",
+  "description": "Hackathon prototype for edtech parent dashboard",
+  "main": "index.js",
+  "scripts": {
+    "build:css": "tailwindcss -i ./static/css/tailwind.css -o ./static/css/styles.css --minify",
+    "watch:css": "tailwindcss -i ./static/css/tailwind.css -o ./static/css/styles.css --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "tailwindcss": "^3.0.0"
+  }
+}
