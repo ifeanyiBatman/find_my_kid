@@ -4,6 +4,8 @@ function updateVideoFeed() {
     const videoFeed = document.getElementById('video-feed');
     const statusMsg = document.getElementById('video-status');
     
+    console.log('Attempting to load video feed from:', url);
+    
     // Reset status
     statusMsg.classList.add('hidden');
     
@@ -12,27 +14,32 @@ function updateVideoFeed() {
     
     // Add error handler
     videoFeed.onerror = function() {
+        console.error('Failed to load video feed from:', url);
         statusMsg.classList.remove('hidden');
     };
+}
+
+// Update marker position from UI
+function updateMarkerPosition() {
+    const latInput = document.getElementById('gps-lat').value.replace(/,/g, '.');
+    const lngInput = document.getElementById('gps-lng').value.replace(/,/g, '.');
+    const lat = parseFloat(latInput);
+    const lng = parseFloat(lngInput);
     
-    // Update marker position from UI
-    function updateMarkerPosition() {
-        const lat = parseFloat(document.getElementById('gps-lat').value);
-        const lng = parseFloat(document.getElementById('gps-lng').value);
-        
-        if (!isNaN(lat) && !isNaN(lng)) {
-            updateMarkerUI(new L.LatLng(lat, lng));
-        } else {
-            alert('Please enter valid latitude and longitude numbers');
-        }
-    }
+    console.log('Updating marker to:', lat, lng);
     
-    // Update marker position on map
-    function updateMarkerUI(latLng) {
-        marker.setLatLng(latLng);
-        map.panTo(latLng);
-        marker.bindPopup(`Ward Location: ${latLng.lat.toFixed(4)}, ${latLng.lng.toFixed(4)}`).openPopup();
+    if (!isNaN(lat) && !isNaN(lng)) {
+        updateMarkerUI(new L.LatLng(lat, lng));
+    } else {
+        alert('Please enter valid latitude and longitude numbers');
     }
+}
+
+// Update marker position on map
+function updateMarkerUI(latLng) {
+    marker.setLatLng(latLng);
+    map.panTo(latLng);
+    marker.bindPopup(`Ward Location: ${latLng.lat.toFixed(4)}, ${latLng.lng.toFixed(4)}`).openPopup();
 }
 
 // Initialize Leaflet map
