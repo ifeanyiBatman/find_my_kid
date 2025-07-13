@@ -1,20 +1,22 @@
 // Add video feed update functionality with error handling
 function updateVideoFeed() {
-    const url = document.getElementById('camera-url').value;
+    const rawUrl = document.getElementById('camera-url').value;
     const videoFeed = document.getElementById('video-feed');
     const statusMsg = document.getElementById('video-status');
-    
-    console.log('Attempting to load video feed from:', url);
     
     // Reset status
     statusMsg.classList.add('hidden');
     
+    // Encode URL for proxy
+    const proxyUrl = `/proxy/video?url=${encodeURIComponent(rawUrl)}`;
+    console.log('Proxying video feed through:', proxyUrl);
+    
     // Set new source
-    videoFeed.src = url;
+    videoFeed.src = proxyUrl;
     
     // Add error handler
     videoFeed.onerror = function() {
-        console.error('Failed to load video feed from:', url);
+        console.error('Failed to load video feed from proxy:', proxyUrl);
         statusMsg.classList.remove('hidden');
     };
 }
