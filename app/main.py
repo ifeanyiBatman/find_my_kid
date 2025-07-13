@@ -60,13 +60,25 @@ async def proxy_video(request: Request):
     
     async with httpx.AsyncClient() as client:
         try:
+            print(f"Proxying video from: {camera_url}")
             response = await client.get(camera_url, timeout=10.0)
             if response.status_code != 200:
+                print(f"Camera server error: {response.status_code}")
                 raise HTTPException(status_code=response.status_code, detail="Camera server error")
             
+            content_type = response.headers.get("Content-Type", "multipart/x-mixed-replace")
+            print(f"Received Content-Type: {content_type}")
+            
+            # Set proper headers for MJPEG stream
             return StreamingResponse(
                 response.aiter_bytes(),
-                media_type=response.headers.get("Content-Type", "multipart/x-mixed-replace")
+                media_type='multipart/x-mixed-replace; boundary=--myboundary',
+                headers={
+                    "Cache-Control": "no-cache, no-store, must-revalidate",
+                    "Connection": "close",
+                    "Content-Type": "multipart/x-mixed-replace; boundary=--myboundary"
+                }
             )
-        except httpx.RequestError:
+        except httpx.RequestError as e:
+            print(f"Proxy connection error: {str(e)}")
             raise HTTPException(status_code=503, detail="Could not connect to camera")

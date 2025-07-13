@@ -7,16 +7,17 @@ function updateVideoFeed() {
     // Reset status
     statusMsg.classList.add('hidden');
     
-    // Encode URL for proxy
-    const proxyUrl = `/proxy/video?url=${encodeURIComponent(rawUrl)}`;
-    console.log('Proxying video feed through:', proxyUrl);
+    // Add cache-busting parameter to ensure fresh stream
+    const timestamp = new Date().getTime();
+    const streamUrl = `${rawUrl}?t=${timestamp}`;
+    console.log('Loading video feed from:', streamUrl);
     
-    // Set new source
-    videoFeed.src = proxyUrl;
+    // Set image source directly
+    videoFeed.src = streamUrl;
     
     // Add error handler
     videoFeed.onerror = function() {
-        console.error('Failed to load video feed from proxy:', proxyUrl);
+        console.error('Failed to load video feed from URL:', streamUrl);
         statusMsg.classList.remove('hidden');
     };
 }
