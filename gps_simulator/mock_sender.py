@@ -8,8 +8,8 @@ async def send_gps_data():
     async with websockets.connect(uri) as websocket:
         while True:
             # Simulate GPS coordinates in Lagos
-            lat = 6.5244 + random.uniform(-0.01, 0.01)
-            lng = 3.3792 + random.uniform(-0.01, 0.01)
+            lat = 6.3754 + random.uniform(-0.01, 0.01)
+            lng = 7.5209 + random.uniform(-0.01, 0.01)
             data = json.dumps({"lat": lat, "lng": lng})
             await websocket.send(data)
             print(f"Sent: {data}")
