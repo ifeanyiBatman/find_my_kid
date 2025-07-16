@@ -31,7 +31,12 @@ class ConnectionManager:
 
 manager = ConnectionManager()
 
-@app.get("/", response_class=HTMLResponse)
+@app.get("/")
+async def read_root(request:Request):
+    return templates.TemplateResponse("index.html", {"request":request})
+
+
+@app.get("/dashboard", response_class=HTMLResponse)
 async def dashboard():
     return templates.TemplateResponse("dashboard.html", {"request": {}})
 
