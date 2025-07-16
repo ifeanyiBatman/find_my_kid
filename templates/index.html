@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lynk - Real-Time Daycare Monitoring</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/tailwind.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="/static/css/tailwind.css">
+    <link rel="stylesheet" href="/static/css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body class="font-inter bg-gray-50">
@@ -16,12 +16,13 @@
             <div class="flex justify-between items-center h-16">
                 <div class="flex items-center">
                     <!-- Logo placeholder -->
-                    <div class="h-8 w-8 bg-blue-500 rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold text-sm">L</span>
+                    <div class="h-8 w- auto bg-blue-500 rounded-lg flex items-center justify-center">
+                       <!-- <span class="text-white font-bold text-sm">L</span> -->
+                       <img src="../static/img/Artboard 3.png" alt="Lynk Logo" class="h-24 w-24" >
                     </div>
                     <!-- Logo with name -->
                     <div class="ml-3 h-8 flex items-center">
-                        <img src="../static/img/Artboard 3.png" alt="Lynk Logo" class="h-8 w-auto object-contain">
+                       
                     </div>
                 </div>
                 <div class="hidden md:block">
