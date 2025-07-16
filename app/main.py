@@ -32,7 +32,7 @@ class ConnectionManager:
 manager = ConnectionManager()
 
 @app.get("/")
-async def read_root(request:Request):
+def read_root(request:Request):
     return templates.TemplateResponse("index.html", {"request":request})
 
 
